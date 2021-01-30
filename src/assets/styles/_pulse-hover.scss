@@ -1,0 +1,30 @@
+.pulse {
+  display: flex;
+  justify-content: center;
+  transform: scale(0.6);
+  position: absolute;
+  right: -20px;
+  top: 59px;
+}
+.pulse__line {
+  opacity: 0;  
+  transition: linear .4s;
+}
+.pulse .pulse__line {
+  width: 10px;
+  height: 1px;
+  background: red;
+}
+.pulse .l2 {
+  transform: rotateZ(255deg);
+  margin: 4px 0px 0px -4px;
+}
+.pulse .l3 {
+  width: 20px;
+  transform: rotateZ(113deg);  
+  margin: -0.2px 0px 0px -9.7px;
+} 
+.pulse .l4 {
+  transform: rotateZ(255deg);
+  margin: -5px -4px 0px -10px;
+}

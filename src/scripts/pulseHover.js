@@ -1,0 +1,16 @@
+const pulseBox = document.querySelector('.pulse')
+pulseBox.insertAdjacentHTML('beforeend', `<div class="pulse__line"></div><div class="pulse__line l2"></div><div class="pulse__line l3"></div><div class="pulse__line l4"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line l2"></div><div class="pulse__line l3"></div><div class="pulse__line l4"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line l2"></div><div class="pulse__line l3"></div><div class="pulse__line l4"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line l2"></div><div class="pulse__line l3"></div><div class="pulse__line l4"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line l2"></div><div class="pulse__line l3"></div><div class="pulse__line l4"></div><div class="pulse__line"></div>
+<div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line l2"></div><div class="pulse__line l3"></div><div class="pulse__line l4"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line l2"></div><div class="pulse__line l3"></div><div class="pulse__line l4"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line l2"></div><div class="pulse__line l3"></div><div class="pulse__line l4"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line l2"></div><div class="pulse__line l3"></div><div class="pulse__line l4"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line l2"></div><div class="pulse__line l3"></div><div class="pulse__line l4"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line l2"></div><div class="pulse__line l3"></div><div class="pulse__line l4"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line"></div><div class="pulse__line l2"></div><div class="pulse__line l3"></div><div class="pulse__line l4"></div><div class="pulse__line"></div>`);
+const lines = document.querySelectorAll('.pulse__line')
+const links = document.querySelectorAll('#rout-link');
+[...links].forEach((link, index) => {
+  link.onmouseenter = () => {
+    let start, end;
+    if (index === 0) { start = 0; end = Math.floor(link.offsetWidth / 5) }
+    if (index === 1) { start = 12; end = Math.floor(link.offsetWidth / 2.3) }
+    if (index === 2) { start = 33; end = Math.floor(link.offsetWidth / 1.4) }
+    if (index === 3) { start = 55; end = 94 }
+    for (let i = start; i <= end; i++) { if (lines[i]) lines[i].style.opacity = 1 }
+  }
+  link.onmouseout = e => [...lines].forEach(line => line.style.opacity = 0);
+})
