@@ -1,2 +1,2 @@
 # IsabekovTemirlan.github.io
-portfolio
+projects - https://isabekovtemirlan.github.io./
