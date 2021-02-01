@@ -3,61 +3,7 @@ $textColor: #d1d1d1;
 $fBold: 'MartelBold';
 $fRegul: 'MartelRegular';
 
-* {
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth !important;
-}
-
-body {
-  box-sizing: border-box;
-  background: $mainBackgroundColor;
-  color: $textColor;
-  font-family: $fRegul;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-a {
-  text-decoration: none;
-}
-
-ul {
-  list-style: none;
-}
-
-h1 {
-  font-family: $fBold;
-}
-
-.main__container {
-  width: 90%;
-  max-width: 1600px;
-  margin: 0 auto;
-  position: relative;
-}
-
-
-// helpers
-
-.drop-shadow-hl {
-  filter: drop-shadow(0 0 15px #c4c4c4);
-}
-
-.noselect {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-
+@import "./helpers";
 @import "./loader";
 @import "./fonts";
 @import "./navbar";
@@ -65,3 +11,4 @@ h1 {
 @import "./header";
 @import "./projects";
 @import "./contacts";
+@import "./challenge";

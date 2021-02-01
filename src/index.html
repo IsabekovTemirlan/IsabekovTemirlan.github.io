@@ -35,7 +35,7 @@
       </div>
 
       <ul class="navbar__links">
-        <li class="navbar__link active">
+        <li class="navbar__link">
           <a id="rout-link" href="#">Head</a>
         </li>
 
@@ -48,7 +48,7 @@
         </li>
 
         <li class="navbar__link">
-          <a id="rout-link" href="#contact">Contacts</a>
+          <a id="rout-link" href="#contacts">Contacts</a>
         </li>
 
         <li class="navbar__link icon">
@@ -78,14 +78,14 @@
           </a>
         </li>
       </ul>
+      <div class="pulse"></div>
     </nav>
-    <div class="pulse"></div>
+    
 
     <!-- Header -->
-    <div class="header">
+    <div class="header page-enter">
       <div class="header__left">
         <h1>Welcome!</h1>
-        <h3>This is my portfolio</h3>
       </div>
       <div class="header__right">
         <img src="./images/mainImg.png" alt="">
@@ -93,7 +93,7 @@
     </div>
 
     <!-- Portfolio -->
-    <div class="projects">
+    <div id="projects" class="projects">
       <h1 class="title">
         Projects
       </h1>
@@ -135,7 +135,7 @@
         </div>
 
         <div class="projects__item">
-          <a href="./challenge.html">
+          <a href="" id="challengeToggle">
             <img class="projects__img" src="./images/port6.png" alt="">
             <span class="projects__text">30 days - HTML, CSS, JS challenge</span>
           </a>
@@ -145,8 +145,17 @@
 
     </div>
 
+    <!-- Challenge -->
+    <div class="challenge page-enter">
+      <a href="../src/challenges/1.html">1 Text to speech conversion</a>
+      <a href="../src/challenges/2.html">2 Drum kit</a>
+      <a href="../src/challenges/3.html">3 Css Js clock</a>
+      <a href="../src/challenges/4.html">4 Play with CSS vars on JS</a>
+      <a href="../src/challenges/5.html">5 Flex panel image gallery</a>     
+    </div>
+
     <!-- Contacts -->
-    <div class="contacts">
+    <div id="contacts" class="contacts">
       <h1 class="title">Contacts</h1>
 
       <div class="contacts__box">

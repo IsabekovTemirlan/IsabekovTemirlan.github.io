@@ -1,0 +1,25 @@
+.challenge {
+  width: 100%;
+  padding-bottom: 30px;
+  border-bottom: 1px solid $textColor;
+  display: none;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+
+  a {
+    color: $textColor;
+    font-family: $fBold;
+    font-size: 30px;
+    border: 1px solid $textColor;
+    padding: 5px 10px;
+    margin: 10px;
+    border-radius: 20px;
+    transition: all .2s;
+    
+    &:hover {
+      background-color: #fff;
+      color: $mainBackgroundColor;
+    }
+  }
+}

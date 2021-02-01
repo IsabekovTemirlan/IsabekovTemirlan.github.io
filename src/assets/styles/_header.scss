@@ -4,7 +4,6 @@
   display: flex;
   justify-content: space-between;
   margin-top: 50px;
-  // overflow: hidden;
   border-bottom: 1px solid $textColor;
   overflow: hidden;
   
@@ -15,9 +14,6 @@
       font-size: 65px;
       line-height: 1.2;
       cursor:default;
-    }
-    h3 {
-      font-size: 30px;      
     }
   }
 
