@@ -32,3 +32,23 @@
   }
 
 }
+
+@media (max-width: 590px) {
+  .header {
+    margin-top: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    &__left {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    &__right {
+      text-align: center;
+      img {
+        width: 90%;
+      }
+    }
+  }
+}
