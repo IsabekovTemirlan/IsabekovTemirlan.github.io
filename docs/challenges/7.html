@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <title>Image Upload</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Image Upload</h1>
+    <input type="file" id="file">
+    <button class="btn" id="open">Select</button>
+    <button class="btn primary" id="upload">Upload</button>
+    <div class="preview"></div>
+  </div>
+
+  <script>
+    function bytesToSize(bytes) {
+      const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+      if (bytes == 0) return '0 Byte'
+      const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)))
+      return Math.round(bytes / Math.pow(1024, i)) + ' ' + sizes[i]
+    }
+
+    function shortName(str) {
+      const split = str.split('.')
+      let filename = split[0]
+      if (str.length > 6) { filename = filename.substring(0, 6); }
+      return `${filename}...${filename[filename.length - 1]}.${split[1]}`
+    }
+
+    function element(tag, classes = [], content) {
+      const node = document.createElement(tag)
+      classes.length ? node.classList.add(...classes) : null
+      content ? node.textContent = content : null
+      return node
+    }
+
+    const rewriteInfo = el => {
+      el.style.bottom = 0
+      el.innerHTML = '<div class="preview-info-progress"></div>'
+    }
+
+    const $ = selector => document.querySelector(selector)
+
+    class Upload {
+      constructor(selector, options = {}) {
+        this.options = options
+        this.files = []
+        this.input = $(selector)
+        this.preview = $(".preview")
+        this.open = $("#open")
+        this.upload = $('#upload')
+
+        if (this.options.multi) { this.input.setAttribute('multiple', true) }
+        if (Array.isArray(this.options.formats)) { this.input.setAttribute('accept', this.options.formats.join(',')) }
+
+        this.open.onclick = () => this.openHandler()
+        this.preview.onclick = e => this.removeHandler(e)
+        this.input.onchange = e => this.changleHandler(e)
+        this.upload.onclick = e => this.uploadHandler(e)
+      }
+
+      openHandler() { this.input.click() }
+
+      changleHandler(e) {
+        if (!e.target.files.length) { return }
+        this.files = [...e.target.files]
+        this.preview.innerHTML = ''
+        this.upload.style.display = 'inline'
+
+        this.files.forEach(file => {
+          if (!file.type.match('image')) { return }
+
+          const reader = new FileReader()
+
+          reader.onload = (e) => {
+            const src = e.target.result
+
+            this.preview.insertAdjacentHTML('afterbegin', `
+          <div class="preview-image">
+            <div class="preview-remove" data-name="${file.name}">&times;</div>
+            <img src="${src}" alt="${file.name}"/>
+            <div class="preview-info"><span>${shortName(file.name)}</span> ${bytesToSize(file.size)}</div>
+          </div>
+        `)
+          }
+
+          reader.readAsDataURL(file)
+        })
+      }
+
+      removeHandler(e) {
+        if (!e.target.dataset) { return }
+
+        const { name } = e.target.dataset
+        this.files = this.files.filter(file => file.name !== name)
+        !this.files.length ? this.upload.style.display = 'none' : null
+
+        const block = this.preview.querySelector(`[data-name="${name}"]`).closest('.preview-image')
+
+        block.classList.add('removing')
+        setTimeout(() => block.remove(), 300)
+      }
+
+      uploadHandler() {
+        this.preview.querySelectorAll('.preview-remove').forEach(e => e.remove())
+        const previewInfo = this.preview.querySelectorAll('.preview-info')
+        previewInfo.forEach(rewriteInfo)
+
+        this.preview.querySelectorAll('.preview-info-progress').forEach(el => setInterval(() => el.style.width = "100%", 1000))
+        this.files = []
+
+        setInterval(() => {
+          this.preview.innerHTML = ''
+          this.upload.style.display = 'none'
+        }, 3000)
+      }
+    }
+
+
+    new Upload('#file', {
+      multi: true,
+      formats: ['.jpg', '.jpeg', '.png']
+    });
+  </script>
+</body>
+
+</html>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(61, 255, 120);
+    font-family: 'Lato', sans-serif;
+  }
+
+  input[type=file] {
+    display: none;
+  }
+
+  .container {
+    width: 800px;
+    margin: 100px auto 0 auto;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+    transition: all .3s;
+  }
+
+  .container h1 {
+    font-weight: bold;
+  }
+
+  .btn {
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 30px;
+    border: none;
+    background-color: rgb(255, 176, 30);
+    text-transform: uppercase;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    transition: all .3s;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+  }
+
+  .btn:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .btn.primary {
+    background-color: rgb(30, 146, 255);
+  }
+
+  .preview {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .preview-image {
+    margin: 5px;
+    position: relative;
+    overflow: hidden;
+    transition: all .3s;
+    border-radius: 3px;
+  }
+
+  .preview-image img {
+    height: 150px;
+    width: auto;
+    display: block;
+  }
+
+  .preview-image:hover .preview-remove {
+    opacity: 1;
+  }
+
+  .preview-image:hover .preview-info {
+    bottom: 0px;
+  }
+
+  .preview-remove {
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity .4s;
+  }
+
+  .preview-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 25px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: -30px;
+    font-size: 14px;
+    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    transition: bottom .4s;
+    padding: 0 5px;
+  }
+
+  .preview-image.removing {
+    transform: scale(0);
+    transition: transform .3s;
+  }
+
+  #upload {
+    display: none;
+  }
+
+  .preview-info-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    width: 0;
+    text-align: center;
+    transition: all 1s;
+    background: rgb(61, 255, 120);
+  }
+</style>

@@ -3,11 +3,9 @@
   padding-bottom: 30px;
   border-bottom: 1px solid $textColor;
   display: none;
-  justify-content: center;
-  flex-wrap: wrap;
-  align-items: center;
 
   a {
+    display: block;
     color: $textColor;
     font-family: $fBold;
     font-size: 30px;

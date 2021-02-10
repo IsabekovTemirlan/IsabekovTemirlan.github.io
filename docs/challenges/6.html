@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Search</title>
+</head>
+
+<body>
+  <div class="wrapp">
+    <input id="input" type="text">
+    <ol id="output"></ol>
+  </div>
+
+  <script>
+    const endpoint = './c.json';
+    const input = document.getElementById('input')
+    const output = document.getElementById('output')
+
+    let DATA = []
+    let result = []
+
+    const getData = async (url) => {
+      const res = await fetch(url)
+      const data = await res.json()
+
+      DATA = data
+    }
+
+    const searchHandler = e => {
+      output.replaceChildren("")
+      const value = e.target.value
+      result = DATA.filter(d => d.city.toLowerCase()[0] === value.toLowerCase()[0])
+      value.split('').forEach((v, i) => result = DATA.filter(d => d.city.toLowerCase().includes(value.toLowerCase())))
+
+      value && result.forEach((e) => output.insertAdjacentHTML('beforeend', `<li>${e.city} &nbsp; &nbsp; &nbsp; <em>${e.population}</em></li>`))
+    }
+
+    getData(endpoint)
+    input.oninput = searchHandler
+
+  </script>
+</body>
+
+</html>
+
+<style>
+  .wrapp {
+    width: 500px;
+    margin: 0 auto;
+  }
+
+  input {
+    width: 100%;
+    font-size: 22px;
+    padding: 5px;
+  }
+
+  li {
+    font-size: 16px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+</style>
