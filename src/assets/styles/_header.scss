@@ -4,15 +4,20 @@
   text-align: center;
   margin-top: 50px;
   border-bottom: 1px solid $textColor;
-  
-  
+
+
   &__left {
     margin-top: 20%;
-   
+
     h1 {
       font-size: 65px;
       line-height: 1.2;
-      cursor:default;
+      cursor: default;
+      display: block;
+
+      & span {
+        display: inline-block;
+      }
     }
   }
 
@@ -28,5 +33,58 @@
       margin-top: 0;
       text-align: center;
     }
+  }
+}
+
+.letterIn {
+  animation: lEnter 4s ease-in-out;
+}
+
+.letterOut {
+  animation: lOut 4s ease-in-out;
+}
+
+@keyframes lEnter {
+  0% {
+    color: black;
+    transform: scale(0)
+  }
+
+  30% {
+    color: white;
+    transform: scale(1)
+  }
+
+  60% {
+    color: rgba($color: #ffffffab, $alpha: .6);
+    transform: scale(1)
+  }
+
+  100% {
+    color: black;
+    transform: scale(2)
+  }
+}
+
+
+@keyframes lOut {
+  0% {
+    color: black;
+    transform: scale(2);
+  }
+
+  30% {
+    color: white;
+    transform: scale(1);
+  }
+
+  60% {
+    color: rgba($color: #ffffffab, $alpha: .6);
+    transform: scale(1);
+  }
+
+  100% {
+    color: black;
+    transform: scale(0);
   }
 }
